@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Still & Story — Memory Album</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <div class="app">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="logo">Still & Story<span>.</span></div>
+      <p class="tagline">A great photograph is never just a static frame</p>
+
+      <nav>
+        <a href="#home" class="nav-link active">Home</a>
+        <a href="#albums" class="nav-link">Albums</a>
+        <a href="#upload" class="nav-link">Add memories</a>
+      </nav>
+
+      <div class="sidebar-footer">
+        Collect moments.<br />
+        Keep them forever.
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+
+      <!-- Header -->
+      <header class="topbar">
+        <p>YOUR PERSONAL MEMORY SPACE</p>
+        <div class="topbar-date" id="today"></div>
+      </header>
+
+      <!-- Home Section -->
+      <section id="home">
+        <div class="hero">
+          <div class="hero-text">
+            <p class="eyebrow">TWO SOULS' PERSONAL MEMORY SPACE</p>
+            <h1>Photos turn memories into timeless <em>treasures.</em></h1>
+            <p class="hero-description">
+              A collection of little things, big feelings,
+              and moments you never want to forget.
+            </p>
+            <a href="#upload" class="primary-btn">+ Add memories</a>
+          </div>
+
+         <!--  <div class="hero-image">
+            <img
+              src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=1000&q=80"
+              alt="Mountain scenery"
+            />
+          </div> -->
+        </div>
+
+        <div class="stats">
+          <div>
+            <span class="stat-number" id="memoryCount">0</span>
+            <span class="stat-label">Memories</span>
+          </div>
+          <div>
+            <span class="stat-number" id="albumCount">0</span>
+            <span class="stat-label">Albums</span>
+          </div>
+        </div>
+
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">YOUR COLLECTION</p>
+            <h2>Recent memories</h2>
+          </div>
+          <a href="#albums" class="text-link">View all →</a>
+        </div>
+
+        <div id="recentMemories" class="memory-grid"></div>
+      </section>
+
+      <!-- Albums Section -->
+      <section id="albums" class="album-section">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">EVERY LITTLE MOMENT</p>
+            <h2>Your albums</h2>
+          </div>
+        </div>
+
+        <div id="albumGrid" class="album-grid"></div>
+      </section>
+
+      <!-- Upload Section -->
+      
+<!-- ADD MEMORIES SECTION -->
+<section id="upload" class="upload-section">
+
+  <div class="upload-intro">
+    <p class="eyebrow">PRESERVE YOUR LITTLE MOMENTS</p>
+    <h2>Keep this memory<br><em>close.</em></h2>
+    <p class="upload-subtitle">
+      Every moment has a story. Save yours here.
+    </p>
+  </div>
+
+  <form id="uploadForm" class="memory-form">
+
+    <!-- DATE & TITLE -->
+    <div class="form-row">
+
+      <div class="form-group">
+        <label for="memoryDate">Date of memory</label>
+        <input type="date" id="memoryDate" required />
+      </div>
+
+      <div class="form-group">
+        <label for="albumTitle">Album name</label>
+        <input
+          type="text"
+          id="albumTitle"
+          placeholder="Add Album Title"
+          maxlength="60"
+          required
+        />
+      </div>
+
+    </div>
+
+    <!-- UPLOAD AREA -->
+    <div class="form-group">
+      <label>Your photos & videos</label>
+
+      <div class="drop-zone" id="dropZone">
+
+        <input
+          type="file"
+          id="memoryFiles"
+          accept="image/*,video/*"
+          multiple
+          required
+        />
+
+        <div class="drop-content">
+          <div class="upload-icon">↥</div>
+
+          <h3>Drop your memories here</h3>
+
+          <p>or <span>browse files</span> from your device</p>
+
+          <small>Photos and videos · Multiple files supported</small>
+        </div>
+
+      </div>
+
+      <!-- FILE PREVIEW -->
+      <div id="filePreview" class="file-preview"></div>
+    </div>
+
+    <!-- CAPTION -->
+    <div class="form-group">
+      <label for="memoryCaption">A little note</label>
+
+      <textarea
+        id="memoryCaption"
+        placeholder="The little details you don't want to forget..."
+      ></textarea>
+
+      <div class="caption-hint">
+        Sometimes the smallest moments mean the most.
+      </div>
+    </div>
+
+    <!-- SUBMIT -->
+    <button type="submit" class="save-memory-btn">
+      <span>Save to my memories</span>
+      <span class="save-arrow">↗</span>
+    </button>
+
+  </form>
+
+</section>
+
+
+      <footer>
+        <p>still. — made for moments that matter.</p>
+        <p>story. - the way our hearts keep memories alive</p>
+      </footer>
+
+    </main>
+  </div>
+
+
+<!-- Album Viewer == MODAL== -->
+<div id="albumModal" class="modal">
+  <div class="modal-content">
+
+    <button id="closeModal" class="close-btn">&times;</button>
+
+    <div class="viewer-header">
+      <div class="viewer-heading">
+        <h2 id="modalTitle">Album</h2>
+        <p>Moments worth keeping</p>
+      </div>
+
+      <div id="viewerCounter" class="viewer-counter">
+        0 / 0
+      </div>
+    </div>
+
+    <div class="viewer-stage" id="viewerStage">
+
+      <button
+        id="viewerPrev"
+        class="viewer-nav viewer-prev"
+        aria-label="Previous media"
+      >
+        &#8249;
+      </button>
+
+      <div id="viewerMediaContainer"></div>
+
+      <button
+        id="viewerNext"
+        class="viewer-nav viewer-next"
+        aria-label="Next media"
+      >
+        &#8250;
+      </button>
+
+    </div>
+
+    <div class="viewer-footer">
+      <span id="viewerCaption" class="viewer-caption"></span>
+      <span id="viewerDate"></span>
+    </div>
+
+  </div>
+</div>
+
+
+  <script src="script.js"></script>
+</body>
+</html>
